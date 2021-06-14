@@ -8,7 +8,7 @@
     - Python
     - Go
     - Rust
-    - Ruby (Comming soon)
+    - Ruby (Coming soon)
     - Vue
 - Snippets: using UtilSnippets
 - CTags: pressing F2
