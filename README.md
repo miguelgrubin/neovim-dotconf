@@ -2,7 +2,7 @@
 
 # What is inside?
 
-- Colorscheme: Grubvox
+- Colorscheme: OneDark
 - LSP ready to use:
     - JavaScript / TypeScript
     - Python

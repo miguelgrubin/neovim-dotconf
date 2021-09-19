@@ -1,8 +1,7 @@
+local M = {}
+local nvim_lsp = require('lspconfig')
 
-" -------------------- LSP ---------------------------------
-lua << EOF
-  local nvim_lsp = require('lspconfig')
-
+M.init = function()
   local on_attach = function(client, bufnr)
     require('completion').on_attach()
 
@@ -58,18 +57,14 @@ lua << EOF
       on_attach = on_attach,
     }
   end
-EOF
 
-" Completion
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" -------------------- LSP ---------------------------------
+  vim.g.completion_matching_strategy_list = { 'exact', 'substring', 'fuzzy' }
 
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true
-  },
-}
-EOF
+  require'nvim-treesitter.configs'.setup {
+    highlight = {
+      enable = true
+    },
+  }
+end
+
+return M
