@@ -1,4 +1,4 @@
-local M  = {}
+local M = {}
 
 local function set_defaults()
   local default_options = {
@@ -16,6 +16,7 @@ local function set_defaults()
     ignorecase = true, -- ignore case in search patterns
     mouse = "a", -- allow the mouse to be used in neovim
     pumheight = 10, -- pop up menu height
+    showmode = false, -- we don't need to see things like -- INSERT -- anymore
     showtabline = 2, -- always show tabs
     smartcase = true, -- smart case
     smartindent = true, -- make indenting smarter again
@@ -58,27 +59,91 @@ local function set_colorscheme()
 end
 
 local function set_gui_settings()
-  require'telescope'.setup()
-  require'telescope'.load_extension('project')
-  require'lualine'.setup {
-    options = { theme = 'onedark' },
+  -- @ToDo: move to Telescope Packer config
+  require("telescope").setup()
+  -- @ToDo: move to Lualine Packer config
+  require("lualine").setup {
+    options = { theme = "onedark" },
   }
-  require'bufferline'.setup {
+  -- @ToDo: move to Bufferline Packer config
+  require("bufferline").setup {
     options = {
       diagnostics = true,
-      separator_style = "slant"
-    }
+      separator_style = "slant",
+    },
   }
-  require'colorizer'.setup()
-  vim.g.nvim_tree_ignore = {'.git', '.cache'}
+  -- @ToDo: move to Colorizer Packer config
+  require("colorizer").setup()
+  -- @ToDo: move to NvimTree Packer config
+  vim.g.nvim_tree_ignore = { ".git", ".cache" }
   vim.g.nvim_tree_follow = 1
-  vim.g.dashboard_default_executive = 'telescope'
+end
+
+-- @ToDo: move to Neoformat Packer config
+local function set_formatters()
+  vim.g.neoformat_enabled_python = { "black", "isort" }
+  vim.g.neoformat_enabled_lua = { "stylua" }
+  vim.g.neoformat_enabled_typescript = { "prettier" }
+  vim.g.neoformat_enabled_javascript = { "prettier" }
+  vim.g.neoformat_enabled_go = { "gofmt", "goimports" }
+end
+
+-- @ToDo: move to Neomake Packer config
+local function set_linters()
+  vim.fn["neomake#configure#automake"]("nw", 750)
+  vim.g.neomake_python_enabled_makers = { "python", "pylint" }
+  vim.g.neomake_lua_enabled_makers = { "luac", "luacheck" }
+  vim.g.neomake_typescript_enabled_makers = { "tsc", "eslint" }
+  vim.g.neomake_javascript_enabled_makers = { "eslint" }
+  vim.g.neomake_go_enabled_makers = { "go", "go vet", "golangci-lint" }
 end
 
 M.init = function()
   set_defaults()
   set_colorscheme()
   set_gui_settings()
+  set_formatters()
+  set_linters()
+end
+
+M.dashboard = function()
+  vim.g.dashboard_default_executive = "telescope"
+  vim.g.dashboard_custom_header = {
+    " ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
+    " ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
+    " ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║",
+    " ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
+    " ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
+    " ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝",
+  }
+  vim.g.dashboard_custom_section = {
+    a = { description = { "  Find File                 SPC f f" }, command = "Telescope find_files" },
+    b = { description = { "  Recents                   SPC f o" }, command = "Telescope oldfiles" },
+    c = { description = { "  Find Word                 SPC f w" }, command = "Telescope live_grep" },
+    d = { description = { "洛 New File                  SPC f n" }, command = "DashboardNewFile" },
+  }
+  vim.g.dashboard_custom_footer = { "Enjoy your pain" }
+end
+
+M.indent_blankline = function()
+  vim.g.indentLine_enabled = 1
+  vim.g.indent_blankline_char = "▏"
+  vim.g.indent_blankline_filetype_exclude = { "help", "terminal", "dashboard" }
+  vim.g.indent_blankline_buftype_exclude = { "terminal" }
+  vim.g.indent_blankline_show_trailing_blankline_indent = false
+  vim.g.indent_blankline_show_first_indent_level = false
+end
+
+M.wich_key = function()
+  local km = require "keymappings"
+  local wk = require "which-key"
+  wk.setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+  wk.register(km.leader_v_mappings, km.leader_v_opts)
+  wk.register(km.leader_n_mappings, km.leader_n_opts)
 end
 
 return M
