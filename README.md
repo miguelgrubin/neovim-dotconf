@@ -62,3 +62,14 @@ Full featured Neovim editor to use with:
 │   └── plugins.lua       
 └── README.md
 ```
+
+
+# Dependencies
+
+- `rg`
+- `exa`
+- `fd`
+- `fzf`
+- `ag`
+- `z`
+

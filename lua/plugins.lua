@@ -1,7 +1,6 @@
 ---@diagnostic disable: undefined-global
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 local M = {}
-local confs = require("config")
 
 function M.init()
   return require("packer").startup(function()
@@ -13,7 +12,7 @@ function M.init()
       "lewis6991/gitsigns.nvim",
       requires = { "nvim-lua/plenary.nvim" },
       config = function()
-        require("gitsigns").setup()
+        require("config").gitsigns()
       end,
     }
     use {
@@ -45,8 +44,8 @@ function M.init()
     use {
       "lukas-reineke/indent-blankline.nvim",
       event = "BufRead",
-      setup = function()
-        confs.indent_blankline()
+      config = function()
+        require("config").indent_blankline()
       end,
     }
 
@@ -67,16 +66,11 @@ function M.init()
 
     -- GUI
     use "nvim-lua/popup.nvim"
-    use {
-      "glepnir/dashboard-nvim",
-      config = function()
-        require("config").dashboard()
-      end
-    }
+    use "glepnir/dashboard-nvim"
     use {
       "folke/which-key.nvim",
       config = function()
-        confs.wich_key()
+        require("config").wich_key()
       end,
       event = "BufWinEnter",
     }
@@ -84,21 +78,69 @@ function M.init()
     use {
       "nvim-telescope/telescope.nvim",
       requires = { { "nvim-lua/plenary.nvim" } },
+      config = function()
+        require("config").telescope()
+      end
     }
     use "kyazdani42/nvim-web-devicons"
-    use "kyazdani42/nvim-tree.lua"
+    use {
+      "kyazdani42/nvim-tree.lua",
+      config = function()
+        require("config").nvim_tree()
+      end
+    }
     use {
       "hoob3rt/lualine.nvim",
       requires = { "kyazdani42/nvim-web-devicons", opt = true },
+      config = function()
+        require("config").lualine()
+      end
     }
-    use "akinsho/nvim-bufferline.lua"
+    use {
+      "akinsho/nvim-bufferline.lua",
+      config = function()
+        require("config").bufferline()
+      end
+    }
     use "liuchengxu/vista.vim"
-    use "norcalli/nvim-colorizer.lua"
+    use {
+      "norcalli/nvim-colorizer.lua",
+      config = function()
+        require("config").colorizer()
+      end
+    }
+    use {
+      "voldikss/vim-floaterm",
+      config = function()
+        require("config").floaterm()
+      end
+    }
 
     --   Testing, Formatters, Linters
-    use { "vim-test/vim-test", cmd = { "TestNearest", "TestFile", "TestSuite", "TestLast", "TestVisit" } }
-    use { "sbdchd/neoformat", cmd = { "Neoformat" } }
-    use { "neomake/neomake", cmd = { "Neomake" } }
+    use {
+      "vim-test/vim-test",
+      cmd = {
+        "TestNearest",
+        "TestFile",
+        "TestSuite",
+        "TestLast",
+        "TestVisit"
+      }
+    }
+    use {
+      "sbdchd/neoformat",
+      cmd = { "Neoformat" },
+      config = function()
+        require("config").neoformat()
+      end
+    }
+    use {
+      "neomake/neomake",
+      cmd = { "Neomake" },
+      config = function()
+        require("config").neomake()
+      end
+    }
 
     --   " Snippets
     --   Plug 'SirVer/ultisnips'

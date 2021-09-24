@@ -58,29 +58,39 @@ local function set_colorscheme()
   vim.g.colors_name = "onedark"
 end
 
-local function set_gui_settings()
-  -- @ToDo: move to Telescope Packer config
+M.telescope = function()
   require("telescope").setup()
-  -- @ToDo: move to Lualine Packer config
+end
+
+M.lualine = function()
   require("lualine").setup {
     options = { theme = "onedark" },
   }
-  -- @ToDo: move to Bufferline Packer config
+end
+
+M.bufferline = function()
   require("bufferline").setup {
     options = {
       diagnostics = true,
       separator_style = "slant",
     },
   }
-  -- @ToDo: move to Colorizer Packer config
+end
+
+M.colorizer = function()
   require("colorizer").setup()
-  -- @ToDo: move to NvimTree Packer config
+end
+
+M.gitsigns = function()
+  require("gitsigns").setup()
+end
+
+M.nvim_tree = function()
   vim.g.nvim_tree_ignore = { ".git", ".cache" }
   vim.g.nvim_tree_follow = 1
 end
 
--- @ToDo: move to Neoformat Packer config
-local function set_formatters()
+M.neoformat = function()
   vim.g.neoformat_enabled_python = { "black", "isort" }
   vim.g.neoformat_enabled_lua = { "stylua" }
   vim.g.neoformat_enabled_typescript = { "prettier" }
@@ -88,8 +98,7 @@ local function set_formatters()
   vim.g.neoformat_enabled_go = { "gofmt", "goimports" }
 end
 
--- @ToDo: move to Neomake Packer config
-local function set_linters()
+M.neomake = function()
   vim.fn["neomake#configure#automake"]("nw", 750)
   vim.g.neomake_python_enabled_makers = { "python", "pylint" }
   vim.g.neomake_lua_enabled_makers = { "luac", "luacheck" }
@@ -98,31 +107,40 @@ local function set_linters()
   vim.g.neomake_go_enabled_makers = { "go", "go vet", "golangci-lint" }
 end
 
-M.init = function()
-  set_defaults()
-  set_colorscheme()
-  set_gui_settings()
-  set_formatters()
-  set_linters()
-end
-
 M.dashboard = function()
   vim.g.dashboard_default_executive = "telescope"
   vim.g.dashboard_custom_header = {
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
     " ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
     " ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
     " ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║",
     " ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
     " ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
     " ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝",
+    "",
+    "",
+    "",
   }
   vim.g.dashboard_custom_section = {
-    a = { description = { "  Find File                 SPC f f" }, command = "Telescope find_files" },
-    b = { description = { "  Recents                   SPC f o" }, command = "Telescope oldfiles" },
-    c = { description = { "  Find Word                 SPC f w" }, command = "Telescope live_grep" },
-    d = { description = { "洛 New File                  SPC f n" }, command = "DashboardNewFile" },
+    a = { description = { "✎  New File                     SPC n  " }, command = "DashboardNewFile" },
+    b = { description = { "ﮮ  Find Recents                 SPC f r" }, command = "Telescope oldfiles" },
+    c = { description = { "  Find File                    SPC f f" }, command = "Telescope find_files" },
+    d = { description = { "ﯔ  Find Word                    SPC f g" }, command = "Telescope live_grep" },
+    e = { description = { "❖  Find Tag                     SPC f t" }, command = "Telescope tags" },
   }
-  vim.g.dashboard_custom_footer = { "Enjoy your pain" }
+  vim.g.dashboard_custom_footer = {
+    "",
+    "",
+    "Enjoy your pain... 🥵🥵🥵",
+  }
 end
 
 M.indent_blankline = function()
@@ -144,6 +162,18 @@ M.wich_key = function()
   }
   wk.register(km.leader_v_mappings, km.leader_v_opts)
   wk.register(km.leader_n_mappings, km.leader_n_opts)
+end
+
+M.floaterm = function()
+  vim.g.floaterm_wintype = "split"
+  vim.g.floaterm_position = "botright"
+  vim.g.floaterm_keymap_toggle = "<C-t>"
+end
+
+M.init = function()
+  set_defaults()
+  set_colorscheme()
+  M.dashboard()
 end
 
 return M
