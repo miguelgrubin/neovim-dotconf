@@ -5,15 +5,13 @@ local M = {}
 function M.init()
   return require("packer").startup(function()
     -- Packer can manage itself
-    use "wbthomason/packer.nvim"
+    use { "wbthomason/packer.nvim" }
 
     -- Git
     use {
       "lewis6991/gitsigns.nvim",
       requires = { "nvim-lua/plenary.nvim" },
-      config = function()
-        require("config").gitsigns()
-      end,
+      config = require("config").gitsigns(),
     }
     use {
       "tpope/vim-fugitive",
@@ -38,82 +36,90 @@ function M.init()
     }
 
     -- Basic features
-    use "tpope/vim-commentary"
-    use "editorconfig/editorconfig-vim"
-    use "yuttie/comfortable-motion.vim"
+    use { "tpope/vim-commentary" }
+    use { "editorconfig/editorconfig-vim" }
+    use { "yuttie/comfortable-motion.vim" }
     use {
       "lukas-reineke/indent-blankline.nvim",
       event = "BufRead",
-      config = function()
-        require("config").indent_blankline()
-      end,
+      config = require("config").indent_blankline(),
     }
 
     -- Colorschemes
-    use "morhetz/gruvbox"
-    use "joshdick/onedark.vim"
+    use { "morhetz/gruvbox" }
+    use { "joshdick/onedark.vim" }
 
     -- Finders
     use { "junegunn/fzf", dir = "~/.fzf", run = "./install --all" }
     use { "junegunn/fzf.vim" }
+    use { "justinmk/vim-sneak" }
 
-    -- Autocomplete, LSP, Syntaxs
-    use "neovim/nvim-lspconfig"
-    use "nvim-lua/completion-nvim"
+    -- Autocomplete, LSP, Syntaxs, Snippets
+    use { "neovim/nvim-lspconfig" }
+    use { "nvim-lua/completion-nvim" }
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
     use { "folke/trouble.nvim", cmd = "TroubleToggle" }
-    use "kabouzeid/nvim-lspinstall"
+    use { "kabouzeid/nvim-lspinstall" }
+    use { "L3MON4D3/LuaSnip", event = "InsertEnter" }
+    use {
+      "hrsh7th/nvim-cmp",
+      requires = {
+        { "saadparwaiz1/cmp_luasnip", after = { "nvim-cmp", "LuaSnip" } },
+        { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
+        { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
+        { "hrsh7th/cmp-calc", after = "nvim-cmp" },
+        { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
+        { "hrsh7th/cmp-path", after = "nvim-cmp" },
+      },
+      config = require("config").cmp(),
+      after = "lspkind-nvim",
+    }
+    use {
+      "glepnir/lspsaga.nvim",
+      config = require("config").lspsaga(),
+    }
+    use {
+      "onsails/lspkind-nvim",
+      config = require("config").lspkind(),
+    }
 
     -- GUI
-    use "nvim-lua/popup.nvim"
-    use "glepnir/dashboard-nvim"
+    use { "nvim-lua/popup.nvim" }
+    use { "glepnir/dashboard-nvim" }
     use {
       "folke/which-key.nvim",
-      config = function()
-        require("config").wich_key()
-      end,
+      config = require("config").wich_key(),
       event = "BufWinEnter",
     }
-    use "nvim-lua/plenary.nvim"
+    use { "nvim-lua/plenary.nvim" }
     use {
       "nvim-telescope/telescope.nvim",
       requires = { { "nvim-lua/plenary.nvim" } },
-      config = function()
-        require("config").telescope()
-      end
+      config = require("config").telescope(),
     }
-    use "kyazdani42/nvim-web-devicons"
+    use { "kyazdani42/nvim-web-devicons" }
     use {
       "kyazdani42/nvim-tree.lua",
-      config = function()
-        require("config").nvim_tree()
-      end
+      requires = "kyazdani42/nvim-web-devicons",
+      config = require("config").nvim_tree(),
     }
     use {
       "hoob3rt/lualine.nvim",
-      requires = { "kyazdani42/nvim-web-devicons", opt = true },
-      config = function()
-        require("config").lualine()
-      end
+      requires = { "kyazdani42/nvim-web-devicons" },
+      config = require("config").lualine(),
     }
     use {
       "akinsho/nvim-bufferline.lua",
-      config = function()
-        require("config").bufferline()
-      end
+      config = require("config").bufferline(),
     }
-    use "liuchengxu/vista.vim"
+    use { "liuchengxu/vista.vim" }
     use {
       "norcalli/nvim-colorizer.lua",
-      config = function()
-        require("config").colorizer()
-      end
+      config = require("config").colorizer(),
     }
     use {
       "voldikss/vim-floaterm",
-      config = function()
-        require("config").floaterm()
-      end
+      config = require("config").floaterm(),
     }
 
     --   Testing, Formatters, Linters
@@ -124,27 +130,19 @@ function M.init()
         "TestFile",
         "TestSuite",
         "TestLast",
-        "TestVisit"
-      }
+        "TestVisit",
+      },
     }
     use {
       "sbdchd/neoformat",
       cmd = { "Neoformat" },
-      config = function()
-        require("config").neoformat()
-      end
+      config = require("config").neoformat(),
     }
     use {
       "neomake/neomake",
       cmd = { "Neomake" },
-      config = function()
-        require("config").neomake()
-      end
+      config = require("config").neomake(),
     }
-
-    --   " Snippets
-    --   Plug 'SirVer/ultisnips'
-    --   " Plug 'honza/vim-snippets'
   end)
 end
 
