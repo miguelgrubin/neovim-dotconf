@@ -13,7 +13,7 @@ M.init = function()
   vim.api.nvim_set_keymap("v", "<S-Tab>", "<gv", { noremap = false, silent = true })
 
   -- Ctrl
-  vim.api.nvim_set_keymap("n", "<C-p>", "<cmd>GFiles<cr>", { noremap = false, silent = true })
+  vim.api.nvim_set_keymap("n", "<C-p>", "<cmd>Telescope find_files<cr>", { noremap = false, silent = true })
   vim.api.nvim_set_keymap("n", "<C-t>", "<cmd>FloatermToggle num_1<cr>", { noremap = false, silent = true })
 end
 
@@ -36,7 +36,8 @@ M.leader_n_opts = {
 }
 
 M.leader_v_mappings = {
-  ["/"] = { ":Commentary<CR>", "Comment" },
+  ["/"] = { "<cmd>Commentary<CR>", "Comment" },
+  ["-"] = { "<cmd>Commentary<CR>", "Comment" },
 }
 
 M.leader_n_mappings = {
@@ -50,21 +51,22 @@ M.leader_n_mappings = {
   ["r"] = { "<cmd>Vista!!<CR>", "Tagbar" },
   ["n"] = { "<cmd>enew<CR>", "New File" },
   ["/"] = { "<cmd>Commentary<CR>", "Comment" },
-  ["_"] = { "<cmd>Commentary<CR>", "Comment" },
+  ["-"] = { "<cmd>Commentary<CR>", "Comment" },
   b = {
     name = "Buffers",
-    b = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "List Buffers" },
-    t = { "<cmd>BTags<cr>", "Buffer Tags"},
+    b = { "<cmd>Telescope buffers<cr>", "List Buffers" },
+    t = { "<cmd>Telescope current_buffer_tags<cr>", "Buffer Tags"},
     n = { "<cmd>BufferLineCycleNext<CR>", "Buffer Next" },
     N = { "<cmd>BufferLineCyclePrev<CR>", "Buffer Prev" },
     p = { "<cmd>BufferLinePick<CR>", "Buffer Pick" },
-    c = { "<cmd>bd<CR>", "Close Buffer" },
+    d = { "<cmd>bd<CR>", "Buffer Delete" },
     l = { "<cmd>BufferLineMoveNext<cr>", "Move Next" },
     h = { "<cmd>BufferLineMovePrev<cr>", "Move Prev" },
   },
   p = {
     name = "Packer",
     c = { "<cmd>PackerCompile<cr>", "Compile" },
+    C = { "<cmd>PackerClean<cr>", "Clean" },
     i = { "<cmd>PackerInstall<cr>", "Install" },
     s = { "<cmd>PackerSync<cr>", "Sync" },
     S = { "<cmd>PackerStatus<cr>", "Status" },
@@ -130,6 +132,7 @@ M.leader_n_mappings = {
     f = { "<cmd>Neoformat<cr>", "Format" },
     l = { "<cmd>Neomake<cr>", "Lint" },
     t = { "<cmd>TestFile<cr>", "Test File" },
+    n = { "<cmd>TestNearest<cr>", "Test Nearest" },
   },
 }
 

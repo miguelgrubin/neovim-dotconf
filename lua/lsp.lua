@@ -22,22 +22,22 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
   buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
 
-  local function t(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
-  end
-  function _G.smart_tab()
-    return vim.fn.pumvisible() == 1 and t "<C-n>" or t "<Tab>"
-  end
-  function _G.smart_stab()
-    return vim.fn.pumvisible() == 1 and t "<C-p>" or t "<S-Tab>"
-  end
+  -- local function t(str)
+  --   return vim.api.nvim_replace_termcodes(str, true, true, true)
+  -- end
+  -- function _G.smart_tab()
+  --   return vim.fn.pumvisible() == 1 and t "<C-n>" or t "<Tab>"
+  -- end
+  -- function _G.smart_stab()
+  --   return vim.fn.pumvisible() == 1 and t "<C-p>" or t "<S-Tab>"
+  -- end
 
-  vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.smart_tab()", { expr = true, noremap = true })
-  vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.smart_stab()", { expr = true, noremap = true })
+  -- vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.smart_tab()", { expr = true, noremap = true })
+  -- vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.smart_stab()", { expr = true, noremap = true })
 end
 
 M.init = function()
-  nvim_lsp.tsserver.setup({
+  nvim_lsp.tsserver.setup {
     cmd = { "typescript-language-server", "--stdio" },
     filetypes = {
       "javascript",
@@ -53,9 +53,8 @@ M.init = function()
         importModuleSpecifierPreference = "relative",
       },
     },
-    -- root_dir = nvim_lsp.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git")
     on_attach = on_attach,
-  })
+  }
 
   local servers = { "pyright", "gopls" }
   for _, lsp in ipairs(servers) do

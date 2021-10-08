@@ -54,25 +54,29 @@ function M.init()
     use { "junegunn/fzf.vim" }
     use { "justinmk/vim-sneak" }
 
-    -- Autocomplete, LSP, Syntaxs, Snippets
+    -- Autocomplete, LSP, Syntaxs
     use { "neovim/nvim-lspconfig" }
     use { "nvim-lua/completion-nvim" }
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
-    use { "folke/trouble.nvim", cmd = "TroubleToggle" }
+    use {
+      "folke/trouble.nvim",
+      cmd = "TroubleToggle",
+      config = require("config").trouble(),
+    }
     use { "kabouzeid/nvim-lspinstall" }
-    use { "L3MON4D3/LuaSnip", event = "InsertEnter" }
     use {
       "hrsh7th/nvim-cmp",
       requires = {
-        { "saadparwaiz1/cmp_luasnip", after = { "nvim-cmp", "LuaSnip" } },
         { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
         { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
         { "hrsh7th/cmp-calc", after = "nvim-cmp" },
         { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
         { "hrsh7th/cmp-path", after = "nvim-cmp" },
+        { "hrsh7th/cmp-vsnip", after = "nvim-cmp" },
+        { "hrsh7th/vim-vsnip", after = "nvim-cmp" },
       },
       config = require("config").cmp(),
-      after = "lspkind-nvim",
+      after = { "lspkind-nvim" },
     }
     use {
       "glepnir/lspsaga.nvim",
@@ -82,6 +86,10 @@ function M.init()
       "onsails/lspkind-nvim",
       config = require("config").lspkind(),
     }
+
+    -- Snippets
+    use { "rafamadriz/friendly-snippets" }
+    use { "andys8/vscode-jest-snippets" }
 
     -- GUI
     use { "nvim-lua/popup.nvim" }
@@ -132,6 +140,7 @@ function M.init()
         "TestLast",
         "TestVisit",
       },
+      config = require("config").vim_test(),
     }
     use {
       "sbdchd/neoformat",

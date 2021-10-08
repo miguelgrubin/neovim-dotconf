@@ -67,7 +67,47 @@ end
 M.lualine = function()
   return function()
     require("lualine").setup {
-      options = { theme = "onedark" },
+      options = {
+        icons_enabled = true,
+        theme = "onedark",
+      },
+      sections = {
+        lualine_a = { "mode", "paste" },
+        lualine_b = {
+          { "branch", icon = "" },
+          { "diff", color_added = "#a7c080", color_modified = "#ffdf1b", color_removed = "#ff6666" },
+        },
+        lualine_c = {
+          --   { "diagnostics", sources = { "nvim_lsp" } },
+          --   function()
+          --     return "%="
+          --   end,
+          --   "filename",
+          --   { getWords },
+        },
+        lualine_x = { "filetype" },
+        lualine_y = {
+          {
+            "progress",
+          },
+        },
+        lualine_z = {
+          {
+            "location",
+            icon = "",
+          },
+        },
+      },
+      inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = { "filename" },
+        lualine_x = { "location" },
+        lualine_y = {},
+        lualine_z = {},
+      },
+      tabline = {},
+      extensions = {},
     }
   end
 end
@@ -111,9 +151,24 @@ end
 
 M.nvim_tree = function()
   return function()
-    require("nvim-tree").setup {}
+    require("nvim-tree").setup {
+      update_focused_file = {
+        enable = true,
+        update_cwd = false,
+        ignore_list = {},
+      },
+      view = {
+        width = 50,
+        height = 30,
+        side = "left",
+        auto_resize = false,
+        mappings = {
+          custom_only = false,
+          list = {},
+        },
+      },
+    }
     vim.g.nvim_tree_ignore = { ".git", ".cache" }
-    vim.g.nvim_tree_follow = 1
   end
 end
 
@@ -129,10 +184,9 @@ end
 
 M.neomake = function()
   return function()
-    vim.fn["neomake#configure#automake"]("nw", 750)
     vim.g.neomake_python_enabled_makers = { "python", "pylint" }
     vim.g.neomake_lua_enabled_makers = { "luac", "luacheck" }
-    vim.g.neomake_typescript_enabled_makers = { "tsc", "eslint" }
+    vim.g.neomake_typescript_enabled_makers = { "tsc" }
     vim.g.neomake_javascript_enabled_makers = { "eslint" }
     vim.g.neomake_go_enabled_makers = { "go", "go vet", "golangci-lint" }
   end
@@ -214,14 +268,7 @@ M.cmp = function()
     cmp.setup {
       snippet = {
         expand = function(args)
-          -- For `vsnip` user.
-          -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` user.
-
-          -- For `luasnip` user.
-          require("luasnip").lsp_expand(args.body)
-
-          -- For `ultisnips` user.
-          -- vim.fn["UltiSnips#Anon"](args.body)
+          vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` user.
         end,
       },
       mapping = {
@@ -231,25 +278,26 @@ M.cmp = function()
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.close(),
-        ["<CR>"] = cmp.mapping.confirm { select = true },
+        ["<CR>"] = cmp.mapping.confirm {
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = true,
+        },
       },
       sources = {
         { name = "nvim_lsp" },
-
-        -- For vsnip user.
-        -- { name = 'vsnip' },
-
-        -- For luasnip user.
-        { name = "luasnip" },
-
-        -- For ultisnips user.
-        -- { name = 'ultisnips' },
-
+        { name = "vsnip" },
         { name = "buffer" },
       },
       formatting = {
         format = function(entry, vim_item)
           vim_item.kind = lspkind.presets.default[vim_item.kind]
+          vim_item.menu = ({
+            buffer = "[Buffer]",
+            nvim_lsp = "[LSP]",
+            luasnip = "[LuaSnip]",
+            nvim_lua = "[Lua]",
+            latex_symbols = "[Latex]",
+          })[entry.source.name]
           return vim_item
         end,
       },
@@ -274,6 +322,26 @@ M.lspkind = function()
       return
     end
     lsp_kind.init()
+  end
+end
+
+M.trouble = function()
+  return function()
+    local is_trouble_loaded, trouble = pcall(require, "trouble")
+    if not is_trouble_loaded then
+      return
+    end
+    trouble.setup {
+      position = "bottom",
+      height = 20,
+    }
+  end
+end
+
+M.vim_test = function()
+  return function()
+    vim.g["test#strategy"] = "floaterm"
+    -- vim.g["test#javascript#jest#file_pattern"] = "\v(__tests__/.*|(spec|test|spec\-integration))\.(js|jsx|coffee|ts|tsx)$"
   end
 end
 
