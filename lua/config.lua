@@ -189,6 +189,7 @@ M.neomake = function()
     vim.g.neomake_typescript_enabled_makers = { "tsc" }
     vim.g.neomake_javascript_enabled_makers = { "eslint" }
     vim.g.neomake_go_enabled_makers = { "go", "go vet", "golangci-lint" }
+    vim.fn["neomake#configure#automake"]("nw", 750)
   end
 end
 

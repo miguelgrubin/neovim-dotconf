@@ -5,7 +5,6 @@ require("keymappings").init()
 require("lsp").init()
 
 -- Autocommands
-vim.fn["neomake#configure#automake"]("nw", 750)
 vim.cmd [[
   augroup fmt
     autocmd!
