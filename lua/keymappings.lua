@@ -55,7 +55,7 @@ M.leader_n_mappings = {
   b = {
     name = "Buffers",
     b = { "<cmd>Telescope buffers<cr>", "List Buffers" },
-    t = { "<cmd>Telescope current_buffer_tags<cr>", "Buffer Tags"},
+    t = { "<cmd>Telescope current_buffer_tags<cr>", "Buffer Tags" },
     n = { "<cmd>BufferLineCycleNext<CR>", "Buffer Next" },
     N = { "<cmd>BufferLineCyclePrev<CR>", "Buffer Prev" },
     p = { "<cmd>BufferLinePick<CR>", "Buffer Pick" },
@@ -133,6 +133,11 @@ M.leader_n_mappings = {
     l = { "<cmd>Neomake<cr>", "Lint" },
     t = { "<cmd>TestFile<cr>", "Test File" },
     n = { "<cmd>TestNearest<cr>", "Test Nearest" },
+  },
+  s = {
+    name = "Sessions",
+    s = { "<cmd>SessionSave<cr>", "Save" },
+    l = { "<cmd>SessionLoad<cr>", "Load" },
   },
 }
 

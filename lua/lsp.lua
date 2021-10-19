@@ -56,7 +56,7 @@ M.init = function()
     on_attach = on_attach,
   }
 
-  local servers = { "pyright", "gopls" }
+  local servers = { "pyright", "gopls", "vuels", "svelte", "clangd", "rust_analyzer", "solargraph" }
   for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
       on_attach = on_attach,

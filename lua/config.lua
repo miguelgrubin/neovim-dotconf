@@ -189,7 +189,7 @@ M.neomake = function()
     vim.g.neomake_typescript_enabled_makers = { "tsc" }
     vim.g.neomake_javascript_enabled_makers = { "eslint" }
     vim.g.neomake_go_enabled_makers = { "go", "go vet", "golangci-lint" }
-    vim.fn["neomake#configure#automake"]("nw", 750)
+    -- vim.fn["neomake#configure#automake"]("nw", 750)
   end
 end
 
@@ -285,8 +285,8 @@ M.cmp = function()
         },
       },
       sources = {
-        { name = "nvim_lsp" },
         { name = "vsnip" },
+        { name = "nvim_lsp" },
         { name = "buffer" },
       },
       formatting = {
@@ -342,7 +342,7 @@ end
 M.vim_test = function()
   return function()
     vim.g["test#strategy"] = "floaterm"
-    -- vim.g["test#javascript#jest#file_pattern"] = "\v(__tests__/.*|(spec|test|spec\-integration))\.(js|jsx|coffee|ts|tsx)$"
+    -- vim.g["test#javascript#jest#file_pattern"] = "\v(__tests__/.*|(spec|test|spec-integration)).(js|jsx|coffee|ts|tsx)$"
   end
 end
 
