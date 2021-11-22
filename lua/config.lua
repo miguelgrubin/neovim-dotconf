@@ -167,8 +167,11 @@ M.nvim_tree = function()
           list = {},
         },
       },
+      filters = {
+        dotfiles = false,
+        custom = { ".git" },
+      },
     }
-    vim.g.nvim_tree_ignore = { ".git", ".cache" }
   end
 end
 
@@ -343,6 +346,13 @@ M.vim_test = function()
   return function()
     vim.g["test#strategy"] = "floaterm"
     -- vim.g["test#javascript#jest#file_pattern"] = "\v(__tests__/.*|(spec|test|spec-integration)).(js|jsx|coffee|ts|tsx)$"
+  end
+end
+
+M.markdown_preview = function()
+  return function()
+    vim.g.mkdp_browser = "brave-browser"
+    vim.g.mkdp_echo_preview_url = 1
   end
 end
 

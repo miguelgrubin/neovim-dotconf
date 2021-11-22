@@ -101,7 +101,8 @@ M.leader_n_mappings = {
   },
   l = {
     name = "LSP",
-    a = { "<cmd>lua require('lspsaga.codeaction').code_action()<cr>", "Code Action" },
+    -- a = { "<cmd>lua require('lspsaga.codeaction').code_action()<cr>", "Code Action" },
+    a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
     d = {
       "<cmd>Telescope lsp_document_diagnostics<cr>",
       "Document Diagnostics",
@@ -133,6 +134,7 @@ M.leader_n_mappings = {
     l = { "<cmd>Neomake<cr>", "Lint" },
     t = { "<cmd>TestFile<cr>", "Test File" },
     n = { "<cmd>TestNearest<cr>", "Test Nearest" },
+    m = { "<cmd>MarkdownPreview<cr>", "Markdown Preview" },
   },
   s = {
     name = "Sessions",

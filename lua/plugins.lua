@@ -152,6 +152,12 @@ function M.init()
       cmd = { "Neomake" },
       config = require("config").neomake(),
     }
+    use {
+      "iamcco/markdown-preview.nvim",
+      ft = "markdown",
+      run = "cd app && yarn install",
+      config = require("config").markdown_preview(),
+    }
   end)
 end
 
