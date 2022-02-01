@@ -153,9 +153,6 @@ function M.init()
       config = require("config").neomake(),
     }
 
-    -- Debugger
-    use { "puremourning/vimspector" }
-
     -- Documentation
     use {
       "iamcco/markdown-preview.nvim",
