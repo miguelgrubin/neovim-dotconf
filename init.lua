@@ -1,13 +1,7 @@
-require("bootstrap").init()
+require("bootstrap").before_all()
 require("config").init()
 require("plugins").init()
 require("keymappings").init()
 require("lsp").init()
-
--- Autocommands
-vim.cmd [[
-  augroup fmt
-    autocmd!
-    autocmd BufWritePre * undojoin | Neoformat
-  augroup END
-]]
+require("cmd").init()
+require("bootstrap").after_all()

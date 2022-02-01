@@ -36,22 +36,22 @@ M.leader_n_opts = {
 }
 
 M.leader_v_mappings = {
-  ["/"] = { "<cmd>Commentary<CR>", "Comment" },
-  ["-"] = { "<cmd>Commentary<CR>", "Comment" },
+  ["-"] = { "<Plug>kommentary_visual_default<cr>", "Comment" },
+  ["/"] = { "<Plug>kommentary_visual_default<cr>", "Comment" },
 }
 
 M.leader_n_mappings = {
-  ["1"] = { "<cmd>FloatermToggle num_1<cr>", "Terminal #1" },
-  ["2"] = { "<cmd>FloatermToggle num_2<cr>", "Terminal #2" },
-  ["3"] = { "<cmd>FloatermToggle num_3<cr>", "Terminal #3" },
+  -- ["1"] = { "<cmd>FloatermToggle num_1<cr>", "Terminal #1" },
+  -- ["2"] = { "<cmd>FloatermToggle num_2<cr>", "Terminal #2" },
+  -- ["3"] = { "<cmd>FloatermToggle num_3<cr>", "Terminal #3" },
   ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { "<cmd>q!<CR>", "Quit" },
   ["c"] = { "<cmd>bd<CR>", "Close Buffer" },
   ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
   ["r"] = { "<cmd>Vista!!<CR>", "Tagbar" },
   ["n"] = { "<cmd>enew<CR>", "New File" },
-  ["/"] = { "<cmd>Commentary<CR>", "Comment" },
-  ["-"] = { "<cmd>Commentary<CR>", "Comment" },
+  ["/"] = { "<Plug>kommentary_motion_default<cr>", "Comment" },
+  ["-"] = { "<Plug>kommentary_motion_default<cr>", "Comment" },
   b = {
     name = "Buffers",
     b = { "<cmd>Telescope buffers<cr>", "List Buffers" },
@@ -101,7 +101,6 @@ M.leader_n_mappings = {
   },
   l = {
     name = "LSP",
-    -- a = { "<cmd>lua require('lspsaga.codeaction').code_action()<cr>", "Code Action" },
     a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
     d = {
       "<cmd>Telescope lsp_document_diagnostics<cr>",
@@ -121,7 +120,7 @@ M.leader_n_mappings = {
       "Prev Diagnostic",
     },
     q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },
-    r = { "<cmd>lua require('lspsaga.rename').rename()<cr>", "Rename" },
+    r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
     s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
     S = {
       "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
@@ -140,6 +139,9 @@ M.leader_n_mappings = {
     name = "Sessions",
     s = { "<cmd>SessionSave<cr>", "Save" },
     l = { "<cmd>SessionLoad<cr>", "Load" },
+  },
+  d = {
+    name = "Debugger",
   },
 }
 

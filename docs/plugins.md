@@ -1,0 +1,14 @@
+- Colorschemes: OneDark, Gruvbox
+- Plugin Manager: Packer
+- Snippets: UtilSnippets
+- Git: gitsigns, vim-fugitive
+- CTags: Vista
+- Finders: Telescope, Fzf, Ag, Rg
+- Formatters: Neoformat
+- Linters: Neomake, editorconfig
+- Testing: vim-test
+- LSP: lsp-config, lsp-install, completion-nvim
+- Syntax: Treesitter
+- Commments: commentary
+- Scroll integration: comfortable-motion
+- GUI improvements: trouble, ident-blankline, dashboard, which-key, nvim-tree, lualine, vista, nvim-colorizer

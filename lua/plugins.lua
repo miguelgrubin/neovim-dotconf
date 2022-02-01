@@ -36,7 +36,10 @@ function M.init()
     }
 
     -- Basic features
-    use { "tpope/vim-commentary" }
+    use {
+      "b3nj5m1n/kommentary",
+      config = require("config").kommentary(),
+    }
     use { "editorconfig/editorconfig-vim" }
     use { "yuttie/comfortable-motion.vim" }
     use {
@@ -63,7 +66,7 @@ function M.init()
       cmd = "TroubleToggle",
       config = require("config").trouble(),
     }
-    use { "kabouzeid/nvim-lspinstall" }
+    use { "williamboman/nvim-lsp-installer" }
     use {
       "hrsh7th/nvim-cmp",
       requires = {
@@ -79,13 +82,10 @@ function M.init()
       after = { "lspkind-nvim" },
     }
     use {
-      "glepnir/lspsaga.nvim",
-      config = require("config").lspsaga(),
-    }
-    use {
       "onsails/lspkind-nvim",
       config = require("config").lspkind(),
     }
+    use { "hashivim/vim-terraform" }
 
     -- Snippets
     use { "rafamadriz/friendly-snippets" }
@@ -152,12 +152,19 @@ function M.init()
       cmd = { "Neomake" },
       config = require("config").neomake(),
     }
+
+    -- Debugger
+    use { "puremourning/vimspector" }
+
+    -- Documentation
     use {
       "iamcco/markdown-preview.nvim",
       ft = "markdown",
       run = "cd app && yarn install",
       config = require("config").markdown_preview(),
     }
+    -- Performance
+    use { "dstein64/vim-startuptime" }
   end)
 end
 

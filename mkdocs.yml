@@ -1,0 +1,10 @@
+site_name: My Docs
+nav:
+  - Home: index.md
+  - Bootstrap: bootstrap.md
+  - Base Config: config.md
+  - Plugins: plugins.md
+  - Commands: cmd.md
+  - Keymappings: keymappings.md
+  - LSP: lsp.md
+theme: readthedocs

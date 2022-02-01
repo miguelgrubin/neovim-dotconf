@@ -12,14 +12,16 @@ end
 local function replace_grep_with_rg()
   error, result = pcall(f, "rg")
   if not error then
-    vim.o.grepprg = "rg --vimgrep --no-heading --smart-case" 
+    vim.o.grepprg = "rg --vimgrep --no-heading --smart-case"
     vim.o.grepformat = "%f:%l:%c:%m,%f:%l:%m"
   end
 end
 
-function M.init()
+function M.before_all()
   ensure_packer_installation()
   replace_grep_with_rg()
 end
+
+function M.after_all() end
 
 return M
