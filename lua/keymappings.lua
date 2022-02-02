@@ -140,9 +140,6 @@ M.leader_n_mappings = {
     s = { "<cmd>SessionSave<cr>", "Save" },
     l = { "<cmd>SessionLoad<cr>", "Load" },
   },
-  d = {
-    name = "Debugger",
-  },
 }
 
 return M

@@ -196,6 +196,10 @@ end
 M.kommentary = function()
   return function()
     vim.g.kommentary_create_default_mappings = false
+    local config = require "kommentary.config"
+    config.configure_language({ "python", "go", "javascript", "typescript", "lua" }, {
+      prefer_single_line_comments = true,
+    })
   end
 end
 
