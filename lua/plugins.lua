@@ -1,5 +1,17 @@
 ---@diagnostic disable: undefined-global
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system { "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path }
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
+end
+
+local packer_bootstrap = ensure_packer()
 local M = {}
 
 function M.init()
@@ -11,7 +23,7 @@ function M.init()
     use {
       "lewis6991/gitsigns.nvim",
       requires = { "nvim-lua/plenary.nvim" },
-      config = require("config").gitsigns(),
+      config = require("config/git").gitsigns,
     }
     use {
       "tpope/vim-fugitive",
@@ -35,38 +47,40 @@ function M.init()
       ft = { "fugitive" },
     }
 
-    -- Basic features
+    -- Base features
     use {
       "b3nj5m1n/kommentary",
-      config = require("config").kommentary(),
+      config = require("config/base").kommentary,
     }
     use { "editorconfig/editorconfig-vim" }
     use { "yuttie/comfortable-motion.vim" }
     use {
       "lukas-reineke/indent-blankline.nvim",
       event = "BufRead",
-      config = require("config").indent_blankline(),
+      config = require("config/base").indent_blankline,
     }
 
     -- Colorschemes
     use { "morhetz/gruvbox" }
     use { "joshdick/onedark.vim" }
+    use { "folke/tokyonight.nvim" }
 
     -- Finders
     use { "junegunn/fzf", dir = "~/.fzf", run = "./install --all" }
     use { "junegunn/fzf.vim" }
     use { "justinmk/vim-sneak" }
+    use { "mg979/vim-visual-multi" }
 
-    -- Autocomplete, LSP, Syntaxs
+    -- LSP, Syntaxs
     use { "neovim/nvim-lspconfig" }
-    use { "nvim-lua/completion-nvim" }
+    use { "williamboman/mason.nvim" }
+    use { "williamboman/mason-lspconfig.nvim" }
+    use { "jose-elias-alvarez/null-ls.nvim" }
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
-    use {
-      "folke/trouble.nvim",
-      cmd = "TroubleToggle",
-      config = require("config").trouble(),
-    }
-    use { "williamboman/nvim-lsp-installer" }
+
+    -- Autocomplete
+    use { "nvim-lua/completion-nvim" }
+    -- use { "williamboman/nvim-lsp-installer" }
     use {
       "hrsh7th/nvim-cmp",
       requires = {
@@ -78,14 +92,15 @@ function M.init()
         { "hrsh7th/cmp-vsnip", after = "nvim-cmp" },
         { "hrsh7th/vim-vsnip", after = "nvim-cmp" },
       },
-      config = require("config").cmp(),
+      config = require("config/autocomplete").cmp,
       after = { "lspkind-nvim" },
     }
     use {
       "onsails/lspkind-nvim",
-      config = require("config").lspkind(),
+      config = require("config/lsp").lspkind,
     }
     use { "hashivim/vim-terraform" }
+    use { "ray-x/lsp_signature.nvim" }
 
     -- Snippets
     use { "rafamadriz/friendly-snippets" }
@@ -93,44 +108,48 @@ function M.init()
 
     -- GUI
     use { "nvim-lua/popup.nvim" }
+    use { "nvim-lua/plenary.nvim" }
     use { "glepnir/dashboard-nvim" }
     use {
       "folke/which-key.nvim",
-      config = require("config").wich_key(),
+      config = require("config/gui").wich_key,
       event = "BufWinEnter",
     }
-    use { "nvim-lua/plenary.nvim" }
     use {
       "nvim-telescope/telescope.nvim",
       requires = { { "nvim-lua/plenary.nvim" } },
-      config = require("config").telescope(),
+      config = require("config/gui").telescope,
     }
     use { "kyazdani42/nvim-web-devicons" }
     use {
       "kyazdani42/nvim-tree.lua",
       requires = "kyazdani42/nvim-web-devicons",
-      config = require("config").nvim_tree(),
+      config = require("config/gui").nvim_tree,
     }
     use {
       "hoob3rt/lualine.nvim",
       requires = { "kyazdani42/nvim-web-devicons" },
-      config = require("config").lualine(),
+      config = require("config/gui").lualine,
     }
     use {
       "akinsho/nvim-bufferline.lua",
-      config = require("config").bufferline(),
+      config = require("config/gui").bufferline,
     }
-    use { "liuchengxu/vista.vim" }
     use {
       "norcalli/nvim-colorizer.lua",
-      config = require("config").colorizer(),
+      config = require("config/gui").colorizer,
     }
     use {
       "voldikss/vim-floaterm",
-      config = require("config").floaterm(),
+      config = require("config/gui").floaterm,
+    }
+    use {
+      "folke/trouble.nvim",
+      cmd = "TroubleToggle",
+      config = require("config/gui").trouble,
     }
 
-    --   Testing, Formatters, Linters
+    --   Testing
     use {
       "vim-test/vim-test",
       cmd = {
@@ -140,8 +159,10 @@ function M.init()
         "TestLast",
         "TestVisit",
       },
-      config = require("config").vim_test(),
+      config = require("config/testing").vim_test,
     }
+
+    -- Linters and Formatters
     use {
       "sbdchd/neoformat",
       cmd = { "Neoformat" },
@@ -153,15 +174,13 @@ function M.init()
       config = require("config").neomake(),
     }
 
-    -- Documentation
-    use {
-      "iamcco/markdown-preview.nvim",
-      ft = "markdown",
-      run = "cd app && yarn install",
-      config = require("config").markdown_preview(),
-    }
     -- Performance
     use { "dstein64/vim-startuptime" }
+
+    -- Update after init
+    if packer_bootstrap then
+      require("packer").sync()
+    end
   end)
 end
 

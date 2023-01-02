@@ -36,7 +36,6 @@ M.leader_n_opts = {
 }
 
 M.leader_v_mappings = {
-  ["-"] = { "<Plug>kommentary_visual_default<cr>", "Comment" },
   ["/"] = { "<Plug>kommentary_visual_default<cr>", "Comment" },
 }
 
@@ -44,14 +43,14 @@ M.leader_n_mappings = {
   -- ["1"] = { "<cmd>FloatermToggle num_1<cr>", "Terminal #1" },
   -- ["2"] = { "<cmd>FloatermToggle num_2<cr>", "Terminal #2" },
   -- ["3"] = { "<cmd>FloatermToggle num_3<cr>", "Terminal #3" },
-  ["w"] = { "<cmd>w!<CR>", "Save" },
+  -- ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { "<cmd>q!<CR>", "Quit" },
   ["c"] = { "<cmd>bd<CR>", "Close Buffer" },
   ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
   ["r"] = { "<cmd>Vista!!<CR>", "Tagbar" },
   ["n"] = { "<cmd>enew<CR>", "New File" },
   ["/"] = { "<Plug>kommentary_motion_default<cr>", "Comment" },
-  ["-"] = { "<Plug>kommentary_motion_default<cr>", "Comment" },
+  ["d"] = { "<cmd>lua vim.diagnostic.open_float()<cr>", "Diagnostic Popup" },
   b = {
     name = "Buffers",
     b = { "<cmd>Telescope buffers<cr>", "List Buffers" },
@@ -59,7 +58,6 @@ M.leader_n_mappings = {
     n = { "<cmd>BufferLineCycleNext<CR>", "Buffer Next" },
     N = { "<cmd>BufferLineCyclePrev<CR>", "Buffer Prev" },
     p = { "<cmd>BufferLinePick<CR>", "Buffer Pick" },
-    d = { "<cmd>bd<CR>", "Buffer Delete" },
     l = { "<cmd>BufferLineMoveNext<cr>", "Move Next" },
     h = { "<cmd>BufferLineMovePrev<cr>", "Move Prev" },
   },

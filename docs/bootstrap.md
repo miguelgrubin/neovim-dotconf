@@ -6,12 +6,12 @@ This run actions on vim startup livecycle.
 
 There are some actions trigged by `bootstrap.before_all()` located at first line on our `init.lua`.
 
-### ensure_packer_installation()
+## ensure_packer_installation()
 
 Ensures that [Packer](https://github.com/wbthomason/packer.nvim) it is installed.
 Necesary to install more plugins. Git its needed to install it.
 
-### replace_grep_with_rg()
+## replace_grep_with_rg()
 
 Replaces `grep` to `ripgrep` on `:grep` command and register obtained results on vim `quickfix` to easy manipulation via [Trouble GUI](https://github.com/folke/trouble.nvim)
 
