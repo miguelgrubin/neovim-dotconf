@@ -127,7 +127,7 @@ M.leader_n_mappings = {
   },
   m = {
     name = "Make",
-    f = { "<cmd>Neoformat<cr>", "Format" },
+    f = { "<cmd>lua vim.lsp.buf.format()<cr>", "Format" },
     l = { "<cmd>Neomake<cr>", "Lint" },
     t = { "<cmd>TestFile<cr>", "Test File" },
     n = { "<cmd>TestNearest<cr>", "Test Nearest" },

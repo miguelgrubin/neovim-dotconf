@@ -1,15 +1,6 @@
 local M = {}
 
-local function autocommands()
-  vim.cmd [[
-    augroup fmt
-      autocmd!
-      autocmd BufWritePre * undojoin | Neoformat
-    augroup END
-  ]]
-end
-
-local function custom_commands()
+local function easy_wq()
   vim.cmd [[
     command Q q
     command W w
@@ -21,8 +12,7 @@ local function custom_commands()
 end
 
 function M.init()
-  autocommands()
-  custom_commands()
+  easy_wq()
 end
 
 return M

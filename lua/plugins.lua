@@ -75,12 +75,12 @@ function M.init()
     use { "neovim/nvim-lspconfig" }
     use { "williamboman/mason.nvim" }
     use { "williamboman/mason-lspconfig.nvim" }
-    use { "jose-elias-alvarez/null-ls.nvim" }
+    use { "jayp0521/mason-null-ls.nvim" }
+    use { "jose-elias-alvarez/null-ls.nvim", config = require("config/lsp").null_ls }
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
 
     -- Autocomplete
     use { "nvim-lua/completion-nvim" }
-    -- use { "williamboman/nvim-lsp-installer" }
     use {
       "hrsh7th/nvim-cmp",
       requires = {
@@ -160,18 +160,6 @@ function M.init()
         "TestVisit",
       },
       config = require("config/testing").vim_test,
-    }
-
-    -- Linters and Formatters
-    use {
-      "sbdchd/neoformat",
-      cmd = { "Neoformat" },
-      config = require("config").neoformat(),
-    }
-    use {
-      "neomake/neomake",
-      cmd = { "Neomake" },
-      config = require("config").neomake(),
     }
 
     -- Performance

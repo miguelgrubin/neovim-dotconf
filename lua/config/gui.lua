@@ -115,11 +115,11 @@ M.dashboard = function()
     "",
   }
   db.custom_center = {
-    { icon = "✎ ", desc = "New File           ", shortcut = "", action = "DashboardNewFile" },
-    { icon = "ﮮ ", desc = "Find Recents       ", shortcut = "", action = "Telescope oldfiles" },
-    { icon = " ", desc = "Find File          ", shortcut = "", action = "Telescope find_files" },
-    { icon = "ﯔ ", desc = "Find Word          ", shortcut = "", action = "Telescope live_grep" },
-    { icon = "❖ ", desc = "Find Tag           ", shortcut = "", action = "Telescope tags" },
+    { icon = "♝ ", desc = "New File           ", shortcut = "", action = "DashboardNewFile" },
+    { icon = "♘ ", desc = "Find Recents       ", shortcut = "", action = "Telescope oldfiles" },
+    { icon = "♖ ", desc = "Find File          ", shortcut = "", action = "Telescope find_files" },
+    { icon = "♚ ", desc = "Find Word          ", shortcut = "", action = "Telescope live_grep" },
+    { icon = "♔ ", desc = "Find Tag           ", shortcut = "", action = "Telescope tags" },
   }
   db.custom_footer = {
     "",
