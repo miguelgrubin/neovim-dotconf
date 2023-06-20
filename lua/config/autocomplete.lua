@@ -3,10 +3,11 @@ local M = {}
 M.cmp = function()
   local lspkind = require "lspkind"
   local cmp = require "cmp"
+  -- require("luasnip.loaders.from_vscode").lazy_load()
   cmp.setup {
     snippet = {
       expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` user.
+        require('luasnip').lsp_expand(args.body)
       end,
     },
     mapping = {
@@ -22,7 +23,7 @@ M.cmp = function()
       },
     },
     sources = {
-      { name = "vsnip" },
+      { name = "luasnip" },
       { name = "nvim_lsp" },
       { name = "buffer" },
     },

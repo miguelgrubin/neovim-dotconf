@@ -66,10 +66,16 @@ function M.init()
     use { "folke/tokyonight.nvim" }
 
     -- Finders
-    use { "junegunn/fzf", dir = "~/.fzf", run = "./install --all" }
-    use { "junegunn/fzf.vim" }
     use { "justinmk/vim-sneak" }
     use { "mg979/vim-visual-multi" }
+    use {
+      "nvim-telescope/telescope.nvim",
+      tag = "0.1.1",
+      requires = { { "nvim-lua/plenary.nvim" } },
+      config = require("config/gui").telescope,
+    }
+    use { "junegunn/fzf", dir = "~/.fzf", run = "./install --all" }
+    use { "junegunn/fzf.vim" }
 
     -- LSP, Syntaxs
     use { "neovim/nvim-lspconfig" }
@@ -80,7 +86,7 @@ function M.init()
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
 
     -- Autocomplete
-    use { "nvim-lua/completion-nvim" }
+    -- use { "nvim-lua/completion-nvim" }
     use {
       "hrsh7th/nvim-cmp",
       requires = {
@@ -89,8 +95,10 @@ function M.init()
         { "hrsh7th/cmp-calc", after = "nvim-cmp" },
         { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
         { "hrsh7th/cmp-path", after = "nvim-cmp" },
-        { "hrsh7th/cmp-vsnip", after = "nvim-cmp" },
-        { "hrsh7th/vim-vsnip", after = "nvim-cmp" },
+        -- { "hrsh7th/cmp-vsnip", after = "nvim-cmp" },
+        -- { "hrsh7th/vim-vsnip", after = "nvim-cmp" },
+        { "L3MON4D3/LuaSnip", after = "nvim-cmp" },
+        { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
       },
       config = require("config/autocomplete").cmp,
       after = { "lspkind-nvim" },
@@ -114,11 +122,6 @@ function M.init()
       "folke/which-key.nvim",
       config = require("config/gui").wich_key,
       event = "BufWinEnter",
-    }
-    use {
-      "nvim-telescope/telescope.nvim",
-      requires = { { "nvim-lua/plenary.nvim" } },
-      config = require("config/gui").telescope,
     }
     use { "kyazdani42/nvim-web-devicons" }
     use {

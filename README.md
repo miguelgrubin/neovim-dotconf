@@ -15,13 +15,13 @@ _Linters_ to check fails.
 _Formats_ to keep uniform style on your code.
 _Testing_ commands to run your tests without leaving Vim.
 
-| Language   | LSP          | Linters                   | Formatters        | Testing |
-| :--------- | :----------- | :------------------------ | :---------------- | :------ |
-| Python     | pyright      | python, pylint            | black, isort      | pytest  |
-| Javascript | tsserver     | eslint                    | prettier          | jest    |
-| Typescript | tsserver     | tsc, eslint               | prettier          | jest    |
-| Go         | gopls        | go, go vet, golangci-lint | go fmt, goimports | go test |
-| Lua        | sumneko_lua  | luac, luacheck            | stylua            | busted  |
+| Language   | LSP         | Linters                   | Formatters        | Testing |
+| :--------- | :---------- | :------------------------ | :---------------- | :------ |
+| Python     | pyright     | python, pylint            | black, isort      | pytest  |
+| Javascript | tsserver    | eslint                    | prettier          | jest    |
+| Typescript | tsserver    | tsc, eslint               | prettier          | jest    |
+| Go         | gopls       | go, go vet, golangci-lint | go fmt, goimports | go test |
+| Lua        | sumneko_lua | luac, luacheck            | stylua            | busted  |
 
 ## Documentation
 
@@ -37,6 +37,5 @@ _Testing_ commands to run your tests without leaving Vim.
 - `rg`
 - `exa`
 - `fd`
-- `fzf`
 - `ag`
 - `z`

@@ -40,10 +40,6 @@ M.leader_v_mappings = {
 }
 
 M.leader_n_mappings = {
-  -- ["1"] = { "<cmd>FloatermToggle num_1<cr>", "Terminal #1" },
-  -- ["2"] = { "<cmd>FloatermToggle num_2<cr>", "Terminal #2" },
-  -- ["3"] = { "<cmd>FloatermToggle num_3<cr>", "Terminal #3" },
-  -- ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { "<cmd>q!<CR>", "Quit" },
   ["c"] = { "<cmd>bd<CR>", "Close Buffer" },
   ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },

@@ -49,35 +49,12 @@ M.init = function()
     on_attach = on_attach,
   }
 
-  local servers = { "pyright", "gopls", "vuels", "svelte", "clangd", "rust_analyzer", "solargraph" }
+  local servers = { "pyright", "gopls", "vuels", "svelte", "clangd", "rust_analyzer", "solargraph", "lua_ls" }
   for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
       on_attach = on_attach,
     }
   end
-
-  nvim_lsp.sumneko_lua.setup {
-    settings = {
-      Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = "LuaJIT",
-        },
-        diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = { "vim" },
-        },
-        workspace = {
-          -- Make the server aware of Neovim runtime files
-          library = vim.api.nvim_get_runtime_file("", true),
-        },
-        -- Do not send telemetry data containing a randomized but unique identifier
-        telemetry = {
-          enable = false,
-        },
-      },
-    },
-  }
 
   require("nvim-treesitter.configs").setup {
     highlight = {
@@ -103,7 +80,7 @@ M.mason = function()
 
   require("mason-lspconfig").setup {
     ensure_installed = {
-      "sumneko_lua",
+      "lua_ls",
       "clangd",
       "rust_analyzer",
       "tsserver",
@@ -127,34 +104,33 @@ M.null_ls = function()
   null_ls.setup {
     debug = true,
     sources = {
-      -- All
-      -- null_ls.builtins.code_actions.refactoring,
-      -- LUA
-      -- null_ls.builtins.diagnostics.luacheck,
+      --     -- All
+      --     -- null_ls.builtins.code_actions.refactoring,
+      --     -- LUA
+      null_ls.builtins.diagnostics.luacheck,
       null_ls.builtins.formatting.stylua,
-      -- JS / TS
+      --     -- JS / TS
       null_ls.builtins.code_actions.eslint,
       null_ls.builtins.diagnostics.eslint,
       null_ls.builtins.formatting.prettier,
-      -- Python
+      --     -- Python
       null_ls.builtins.diagnostics.pylint,
       null_ls.builtins.diagnostics.mypy,
       null_ls.builtins.formatting.isort,
       null_ls.builtins.formatting.black,
-      -- Go
-      { null_ls.builtins.diagnostics.golangci_lint },
-      { null_ls.builtins.diagnostics.revive },
-      { null_ls.builtins.formatting.gofmt },
-      { null_ls.builtins.formatting.goimports },
+      --     -- Go
+      null_ls.builtins.diagnostics.revive,
+      null_ls.builtins.formatting.gofmt,
+      null_ls.builtins.formatting.goimports,
     },
     on_attach = function(client, bufnr)
-      if client.supports_method("textDocument/formatting") then
-        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+      if client.supports_method "textDocument/formatting" then
+        vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
         vim.api.nvim_create_autocmd("BufWritePre", {
           group = augroup,
           buffer = bufnr,
           callback = function()
-            vim.lsp.buf.format({ bufnr = bufnr })
+            vim.lsp.buf.format { bufnr = bufnr }
           end,
         })
       end
@@ -185,17 +161,23 @@ M.treesitter = function()
   }
 end
 
-
 M.mason_null_ls = function()
-  require("mason-null-ls").setup({
+  require("mason-null-ls").setup {
     ensure_installed = {
       "refactoring",
-      "stylua", "luacheck",
-      "goimports", "revive", "golangci_lint",
-      "prettier", "eslint",
-      "black", "isort", "mypy", "pylint",
-    }
-  })
+      "stylua",
+      "luacheck",
+      "goimports",
+      "revive",
+      "golangci_lint",
+      "prettier",
+      "eslint",
+      "black",
+      "isort",
+      "mypy",
+      "pylint",
+    },
+  }
 end
 
 M.mason()
