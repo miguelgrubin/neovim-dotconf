@@ -1,6 +1,6 @@
 require("bootstrap").init()
-require("plugins").init()
 require("config/base").init()
+require("plugins").init()
 require("keymappings").init()
 require("config/lsp").init()
 require("cmd").init()

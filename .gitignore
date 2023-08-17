@@ -3,3 +3,4 @@ autoload
 plugged
 session
 site
+lazy-lock.json

@@ -49,7 +49,7 @@ M.init = function()
     on_attach = on_attach,
   }
 
-  local servers = { "pyright", "gopls", "vuels", "svelte", "clangd", "rust_analyzer", "solargraph", "lua_ls" }
+  local servers = { "pyright", "gopls", "vuels", "svelte", "clangd", "rust_analyzer", "lua_ls" }
   for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
       on_attach = on_attach,
@@ -92,8 +92,24 @@ M.mason = function()
       "dockerls",
       "eslint",
       "prismals",
-      "solargraph",
       "terraformls",
+    },
+  }
+
+  require("mason-null-ls").setup {
+    ensure_installed = {
+      "refactoring",
+      "stylua",
+      "luacheck",
+      "goimports",
+      "revive",
+      "golangci_lint",
+      "prettier",
+      "eslint",
+      "black",
+      "isort",
+      "mypy",
+      "pylint",
     },
   }
 end
@@ -179,9 +195,5 @@ M.mason_null_ls = function()
     },
   }
 end
-
-M.mason()
-M.mason_null_ls()
-M.treesitter()
 
 return M

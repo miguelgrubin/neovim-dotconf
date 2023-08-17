@@ -4,7 +4,7 @@ M.lualine = function()
   require("lualine").setup {
     options = {
       icons_enabled = true,
-      theme = "tokyonight",
+      theme = "auto",
     },
     sections = {
       lualine_a = { "mode", "paste" },
@@ -13,12 +13,7 @@ M.lualine = function()
         { "diff", color_added = "#a7c080", color_modified = "#ffdf1b", color_removed = "#ff6666" },
       },
       lualine_c = {
-        --   { "diagnostics", sources = { "nvim_lsp" } },
-        --   function()
-        --     return "%="
-        --   end,
-        --   "filename",
-        --   { getWords },
+        { "diagnostics", sources = { "nvim_lsp" } },
       },
       lualine_x = { "filetype" },
       lualine_y = {
@@ -79,10 +74,6 @@ M.nvim_tree = function()
     view = {
       width = 50,
       side = "left",
-      mappings = {
-        custom_only = false,
-        list = {},
-      },
     },
     filters = {
       dotfiles = false,
@@ -92,39 +83,42 @@ M.nvim_tree = function()
 end
 
 M.dashboard = function()
-  local db = require "dashboard"
-  -- vim.g.dashboard_default_executive = "telescope"
-  db.custom_header = {
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    " ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
-    " ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
-    " ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║",
-    " ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
-    " ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
-    " ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝",
-    "",
-    "",
-    "",
-  }
-  db.custom_center = {
-    { icon = "♝ ", desc = "New File           ", shortcut = "", action = "DashboardNewFile" },
-    { icon = "♘ ", desc = "Find Recents       ", shortcut = "", action = "Telescope oldfiles" },
-    { icon = "♖ ", desc = "Find File          ", shortcut = "", action = "Telescope find_files" },
-    { icon = "♚ ", desc = "Find Word          ", shortcut = "", action = "Telescope live_grep" },
-    { icon = "♔ ", desc = "Find Tag           ", shortcut = "", action = "Telescope tags" },
-  }
-  db.custom_footer = {
-    "",
-    "",
-    "Enjoy your pain... 🥵🥵🥵",
+  require("dashboard").setup {
+    theme = "doom",
+    config = {
+      header = {
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        " ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
+        " ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
+        " ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║",
+        " ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
+        " ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
+        " ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝",
+        "",
+        "",
+        "",
+      },
+      center = {
+        { icon = "♝ ", desc = "New File           ", key = "n", action = "DashboardNewFile" },
+        { icon = "♘ ", desc = "Find Recents       ", key = "r", action = "Telescope oldfiles" },
+        { icon = "♖ ", desc = "Find File          ", key = "f", action = "Telescope find_files" },
+        { icon = "♚ ", desc = "Find Grep          ", key = "g", action = "Telescope live_grep" },
+        { icon = "♔ ", desc = "Find Tag           ", key = "t", action = "Telescope tags" },
+      },
+      footer = {
+        "",
+        "",
+        "Enjoy your pain... 🥵🥵🥵",
+      },
+    },
   }
 end
 
@@ -156,7 +150,5 @@ end
 M.telescope = function()
   require("telescope").setup()
 end
-
-M.dashboard()
 
 return M

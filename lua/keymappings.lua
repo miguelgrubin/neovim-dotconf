@@ -40,13 +40,12 @@ M.leader_v_mappings = {
 }
 
 M.leader_n_mappings = {
-  ["q"] = { "<cmd>q!<CR>", "Quit" },
   ["c"] = { "<cmd>bd<CR>", "Close Buffer" },
   ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-  ["r"] = { "<cmd>Vista!!<CR>", "Tagbar" },
   ["n"] = { "<cmd>enew<CR>", "New File" },
   ["/"] = { "<Plug>kommentary_motion_default<cr>", "Comment" },
   ["d"] = { "<cmd>lua vim.diagnostic.open_float()<cr>", "Diagnostic Popup" },
+  ["p"] = { "<cmd>Lazy<cr>", "Plugins" },
   b = {
     name = "Buffers",
     b = { "<cmd>Telescope buffers<cr>", "List Buffers" },
@@ -56,15 +55,6 @@ M.leader_n_mappings = {
     p = { "<cmd>BufferLinePick<CR>", "Buffer Pick" },
     l = { "<cmd>BufferLineMoveNext<cr>", "Move Next" },
     h = { "<cmd>BufferLineMovePrev<cr>", "Move Prev" },
-  },
-  p = {
-    name = "Packer",
-    c = { "<cmd>PackerCompile<cr>", "Compile" },
-    C = { "<cmd>PackerClean<cr>", "Clean" },
-    i = { "<cmd>PackerInstall<cr>", "Install" },
-    s = { "<cmd>PackerSync<cr>", "Sync" },
-    S = { "<cmd>PackerStatus<cr>", "Status" },
-    u = { "<cmd>PackerUpdate<cr>", "Update" },
   },
   g = {
     name = "Git",
@@ -120,19 +110,13 @@ M.leader_n_mappings = {
       "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
       "Workspace Symbols",
     },
+    m = { "<cmd>Mason<cr>", "Mason" },
   },
   m = {
     name = "Make",
     f = { "<cmd>lua vim.lsp.buf.format()<cr>", "Format" },
-    l = { "<cmd>Neomake<cr>", "Lint" },
     t = { "<cmd>TestFile<cr>", "Test File" },
     n = { "<cmd>TestNearest<cr>", "Test Nearest" },
-    m = { "<cmd>MarkdownPreview<cr>", "Markdown Preview" },
-  },
-  s = {
-    name = "Sessions",
-    s = { "<cmd>SessionSave<cr>", "Save" },
-    l = { "<cmd>SessionLoad<cr>", "Load" },
   },
 }
 
