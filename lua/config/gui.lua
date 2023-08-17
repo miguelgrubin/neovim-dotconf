@@ -107,7 +107,7 @@ M.dashboard = function()
         "",
       },
       center = {
-        { icon = "♝ ", desc = "New File           ", key = "n", action = "DashboardNewFile" },
+        { icon = "♝ ", desc = "New File           ", key = "n", action = "enew" },
         { icon = "♘ ", desc = "Find Recents       ", key = "r", action = "Telescope oldfiles" },
         { icon = "♖ ", desc = "Find File          ", key = "f", action = "Telescope find_files" },
         { icon = "♚ ", desc = "Find Grep          ", key = "g", action = "Telescope live_grep" },
