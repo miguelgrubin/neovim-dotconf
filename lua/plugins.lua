@@ -1,7 +1,6 @@
 local M = {}
 
 function M.init()
-  local opts = {}
   local plugins = {
     -- GIT
     {
@@ -45,16 +44,22 @@ function M.init()
     },
 
     -- Colorschemes
-    "morhetz/gruvbox",
-    "joshdick/onedark.vim",
-    "folke/tokyonight.nvim",
+    {
+      "folke/tokyonight.nvim",
+      lazy = false,
+      priority = 1000, -- make sure to load this before all the other start plugins
+      config = function()
+        -- load the colorscheme here
+        vim.cmd([[colorscheme tokyonight]])
+      end,
+    },
 
     -- Finders
     "justinmk/vim-sneak",
     "mg979/vim-visual-multi",
     {
       "nvim-telescope/telescope.nvim",
-      version = "0.1.2",
+      version = "0.1.5",
       dependencies = { { "nvim-lua/plenary.nvim" } },
       config = require("config/gui").telescope,
     },
@@ -71,11 +76,9 @@ function M.init()
       "williamboman/mason.nvim",
       dependencies = {
         "williamboman/mason-lspconfig.nvim",
-        "jayp0521/mason-null-ls.nvim",
       },
       init = require("config/lsp").mason,
     },
-    { "jose-elias-alvarez/null-ls.nvim", config = require("config/lsp").null_ls },
     {
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
@@ -83,19 +86,19 @@ function M.init()
     },
 
     -- Autocomplete
-    -- use { "nvim-lua/completion-nvim" }
+    "github/copilot.vim",
     {
       "hrsh7th/nvim-cmp",
       dependencies = {
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-calc",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
+        -- "hrsh7th/cmp-calc",
+        -- "hrsh7th/cmp-buffer",
+        -- "hrsh7th/cmp-path",
         -- "hrsh7th/cmp-vsnip",
         -- "hrsh7th/vim-vsnip",
-        "L3MON4D3/LuaSnip",
-        "saadparwaiz1/cmp_luasnip",
+        -- "L3MON4D3/LuaSnip",
+        -- "saadparwaiz1/cmp_luasnip",
       },
       config = require("config/autocomplete").cmp,
     },
@@ -103,7 +106,6 @@ function M.init()
       "onsails/lspkind-nvim",
       config = require("config/lsp").lspkind,
     },
-    "hashivim/vim-terraform",
     "ray-x/lsp_signature.nvim",
 
     -- Snippets
@@ -113,11 +115,6 @@ function M.init()
     --   -- GUI
     "nvim-lua/popup.nvim",
     "nvim-lua/plenary.nvim",
-    {
-      "glepnir/dashboard-nvim",
-      event = 'VimEnter',
-      init = require("config/gui").dashboard,
-    },
     {
       "folke/which-key.nvim",
       config = require("config/gui").wich_key,
@@ -163,7 +160,7 @@ function M.init()
       config = require("config/testing").vim_test,
     },
   }
-  require("lazy").setup(plugins, opts)
+  require("lazy").setup(plugins)
 end
 
 return M

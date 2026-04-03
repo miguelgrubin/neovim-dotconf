@@ -51,17 +51,6 @@ M.set_defaults = function()
   end
 end
 
-M.set_colorscheme = function()
-  if vim.fn.exists "syntax_on" then
-    vim.api.nvim_command "syntax reset"
-  end
-  vim.o.background = "dark"
-  vim.o.termguicolors = true
-  vim.cmd "colorscheme tokyonight"
-  --   vim.cmd "colorscheme onedark"
-  --   vim.cmd "colorscheme gruvbox"
-end
-
 M.kommentary = function()
   vim.g.kommentary_create_default_mappings = false
   local config = require "kommentary.config"
@@ -71,21 +60,11 @@ M.kommentary = function()
 end
 
 M.indent_blankline = function()
-  vim.g.indentLine_enabled = 1
-  vim.g.indent_blankline_char = "▏"
-  vim.g.indent_blankline_filetype_exclude = { "help", "terminal", "dashboard" }
-  vim.g.indent_blankline_buftype_exclude = { "terminal" }
-  -- vim.g.indent_blankline_show_trailing_blankline_indent = false
-  vim.g.indent_blankline_show_first_indent_level = false
-  require("indent_blankline").setup {
-    show_end_of_line = false,
-    space_char_blankline = " ",
-  }
+  require("ibl").setup()
 end
 
 M.init = function()
   M.set_defaults()
-  M.set_colorscheme()
 end
 
 return M

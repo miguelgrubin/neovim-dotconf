@@ -1,5 +1,4 @@
 local M = {}
-local nvim_lsp = require "lspconfig"
 
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
@@ -30,6 +29,7 @@ local on_attach = function(client, bufnr)
 end
 
 M.init = function()
+  local nvim_lsp = require "lspconfig"
   nvim_lsp.tsserver.setup {
     cmd = { "typescript-language-server", "--stdio" },
     filetypes = {
@@ -91,66 +91,7 @@ M.mason = function()
       "angularls",
       "dockerls",
       "eslint",
-      "prismals",
-      "terraformls",
     },
-  }
-
-  require("mason-null-ls").setup {
-    ensure_installed = {
-      "refactoring",
-      "stylua",
-      "luacheck",
-      "goimports",
-      "revive",
-      "golangci_lint",
-      "prettier",
-      "eslint",
-      "black",
-      "isort",
-      "mypy",
-      "pylint",
-    },
-  }
-end
-
-M.null_ls = function()
-  local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-  local null_ls = require "null-ls"
-  null_ls.setup {
-    debug = true,
-    sources = {
-      --     -- All
-      --     -- null_ls.builtins.code_actions.refactoring,
-      --     -- LUA
-      null_ls.builtins.diagnostics.luacheck,
-      null_ls.builtins.formatting.stylua,
-      --     -- JS / TS
-      null_ls.builtins.code_actions.eslint,
-      null_ls.builtins.diagnostics.eslint,
-      null_ls.builtins.formatting.prettier,
-      --     -- Python
-      null_ls.builtins.diagnostics.pylint,
-      null_ls.builtins.diagnostics.mypy,
-      null_ls.builtins.formatting.isort,
-      null_ls.builtins.formatting.black,
-      --     -- Go
-      null_ls.builtins.diagnostics.revive,
-      null_ls.builtins.formatting.gofmt,
-      null_ls.builtins.formatting.goimports,
-    },
-    on_attach = function(client, bufnr)
-      if client.supports_method "textDocument/formatting" then
-        vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
-        vim.api.nvim_create_autocmd("BufWritePre", {
-          group = augroup,
-          buffer = bufnr,
-          callback = function()
-            vim.lsp.buf.format { bufnr = bufnr }
-          end,
-        })
-      end
-    end,
   }
 end
 
@@ -174,25 +115,6 @@ M.treesitter = function()
       "vim",
     },
     auto_install = true,
-  }
-end
-
-M.mason_null_ls = function()
-  require("mason-null-ls").setup {
-    ensure_installed = {
-      "refactoring",
-      "stylua",
-      "luacheck",
-      "goimports",
-      "revive",
-      "golangci_lint",
-      "prettier",
-      "eslint",
-      "black",
-      "isort",
-      "mypy",
-      "pylint",
-    },
   }
 end
 

@@ -82,46 +82,6 @@ M.nvim_tree = function()
   }
 end
 
-M.dashboard = function()
-  require("dashboard").setup {
-    theme = "doom",
-    config = {
-      header = {
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        " ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
-        " ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
-        " ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║",
-        " ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
-        " ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
-        " ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝",
-        "",
-        "",
-        "",
-      },
-      center = {
-        { icon = "♝ ", desc = "New File           ", key = "n", action = "enew" },
-        { icon = "♘ ", desc = "Find Recents       ", key = "r", action = "Telescope oldfiles" },
-        { icon = "♖ ", desc = "Find File          ", key = "f", action = "Telescope find_files" },
-        { icon = "♚ ", desc = "Find Grep          ", key = "g", action = "Telescope live_grep" },
-        { icon = "♔ ", desc = "Find Tag           ", key = "t", action = "Telescope tags" },
-      },
-      footer = {
-        "",
-        "",
-        "Enjoy your pain... 🥵🥵🥵",
-      },
-    },
-  }
-end
-
 M.wich_key = function()
   local km = require "keymappings"
   local wk = require "which-key"
@@ -130,8 +90,9 @@ M.wich_key = function()
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
   }
-  wk.register(km.leader_v_mappings, km.leader_v_opts)
-  wk.register(km.leader_n_mappings, km.leader_n_opts)
+  wk.add(km.leader_mappings)
+  -- wk.register(km.leader_v_mappings, km.leader_v_opts)
+  -- wk.register(km.leader_n_mappings, km.leader_n_opts)
 end
 
 M.floaterm = function()
